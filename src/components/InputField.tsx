@@ -6,7 +6,6 @@ interface InputFieldProps {
     formFeedBack: string;
     formText: string;
     onChange: {};
-    type: string;
 
 }
 

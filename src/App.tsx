@@ -1,11 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import LoginForm from './containers/LoginForm'
+import RegisterForm from './containers/RegisterForm';
 
 const App: React.FunctionComponent = () => {
   return (
     <div className="App">
-      
+      <LoginForm />
+      <RegisterForm />
     </div>
   );
 }

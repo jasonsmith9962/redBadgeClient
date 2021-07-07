@@ -52,7 +52,7 @@ render() {
     <div className="App">
       <Header />
       <Router>
-        <Sidebar updateToken={this.updateToken}/>
+        <Sidebar updateToken={this.updateToken} sessionToken={this.state.sessionToken}/>
       </Router>
       <Footer />
     </div>

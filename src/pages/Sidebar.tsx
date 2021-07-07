@@ -7,11 +7,14 @@ import {
 import LoginForm from '../containers/LoginForm';
 import RegisterForm from '../containers/RegisterForm';
 import CreatePost from '../containers/CreatePost';
+import CreateStats from '../containers/CreateStats';
+import ViewPosts from '../containers/ViewPosts';
 
 
 
 type AcceptedProps = {
-    updateToken: (newToken: string) => void
+    updateToken: (newToken: string) => void,
+    sessionToken: string | null
 }
 
 
@@ -25,6 +28,8 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
                     <li><Link to='/loginform'>Login</Link></li>
                     <li><Link to='/registerform'>Register</Link></li>
                     <li><Link to='/createpost'>Create Post</Link></li>
+                    <li><Link to='/createstats'>Create Stats</Link></li>
+                    <li><Link to='/viewposts'>View Posts</Link></li>
                 </ul>
             </div>
         
@@ -32,7 +37,9 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
             <Switch>
             <Route exact path='/loginform'><LoginForm updateToken={props.updateToken}/></Route>
             <Route exact path='/registerform'><RegisterForm updateToken={props.updateToken}/></Route>
-            <Route exact path='/createpost'><CreatePost /></Route>
+            <Route exact path='/createpost'><CreatePost sessionToken={props.sessionToken} /></Route>
+            <Route exact path='/createstats'><CreateStats sessionToken={props.sessionToken}/></Route>
+            <Route exact path='/viewposts'><ViewPosts sessionToken={props.sessionToken}/></Route>
             </Switch>
         </div>
         </div>
@@ -42,3 +49,5 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
 }
 
 export default Sidebar;
+
+//use localStorage for some work arounds.

@@ -11,7 +11,7 @@ type PostData = {
 }
 
 type AcceptedProps = {
-    // updateToken: (newToken: string) => void
+    sessionToken: string | null,
 }
 
 export default class CreatePost extends Component<AcceptedProps, PostData> {
@@ -19,9 +19,9 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
         super(props)
         this.state = {
             gamerTag: '',
-            playersNeeded: 0,
+            playersNeeded: 1,
             micRequired: true,
-            type: '',
+            type: 'casual',
             comments: ''
         }
     }
@@ -29,17 +29,20 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
 
     handleCreate = (event: any) => {
         event.preventDefault();
+console.log(this.state.type);
 
         fetch('http://jas-team-apex.herokuapp.com/posts/create', {
             method: 'POST',
-            body: JSON.stringify({ posts: { gamerTag: this.state.gamerTag, playersNeeded: this.state.playersNeeded, micRequired: this.state.micRequired, type: this.state.type, comments: this.state.comments } }),
+            body: JSON.stringify({ gamerTag: this.state.gamerTag, playersNeeded: this.state.playersNeeded, micRequired: this.state.micRequired, type: this.state.type, comments: this.state.comments }),
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
             })
         }).then(
             (response) => response.json()
         ).then((data) => {
-            // this.props.updateToken(data.sessionToken)
+            console.log(data)
+            
         })
     }
 
@@ -80,37 +83,38 @@ render() {
                     
                     <h2>Create Post</h2>
                     <FormGroup>
-                        <Label>Gamer Tag</Label>
+                        <Label>Gamer Tag </Label>
                     <Input placeholder='Gamer Tag' type="text" onChange={this.handleGtInput.bind(this)} />
                     </FormGroup>
                     <br />
                     <FormGroup>
-                        <Label>Players Needed</Label>
+                        <Label>Players Needed </Label>
                     <Input placeholder='Players Needed' type="select" onChange={this.handlePnInput.bind(this)}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
                     </Input>
                     </FormGroup>
                     <br />
                     <FormGroup>
-                        <Label>Mic Required?</Label>
+                        <Label>Mic Required? </Label>
                     <Input placeholder='Mic Required?' type="select" onChange={this.handleMrInput.bind(this)}>
-                    <option>true</option>
-                    <option>false</option>
+                    <option value='true'>true</option>
+                    <option value='false'>false</option>
                     </Input>
                     </FormGroup>
                     <br />
                     <FormGroup>
-                        <Label>Game Type</Label>
+                        <Label>Game Type </Label>
                     <Input placeholder='Game Type' type="select" onChange={this.handleTypeInput.bind(this)}>
-                    <option>casual</option>
-                    <option>ranked</option>
+                    <option value='casual'>casual</option>
+                    <option value='ranked'>ranked</option>
                     </Input>
                     </FormGroup>
                     <br />
                     <FormGroup>
-                    <Input placeholder='Comments' type="text" onChange={this.handleGtInput.bind(this)} />
+                        <Label>Comments </Label>
+                    <Input placeholder='Comments' type="text" onChange={this.handleCommentsInput.bind(this)} />
                     </FormGroup>
                     <br />
                     <Button onClick={this.handleCreate}>Submit Post</Button>

@@ -5,7 +5,7 @@ import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap
 type PostData = {
     gamerTag: string,
     playersNeeded: number,
-    micRequired: boolean,
+    micRequired: boolean, //how to get this to work?
     type: string,
     comments: string,
 }
@@ -29,7 +29,7 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
 
     handleCreate = (event: any) => {
         event.preventDefault();
-console.log(this.state.type);
+        console.log(this.state.type);
 
         fetch('http://jas-team-apex.herokuapp.com/posts/create', {
             method: 'POST',
@@ -42,7 +42,7 @@ console.log(this.state.type);
             (response) => response.json()
         ).then((data) => {
             console.log(data)
-            
+
         })
     }
 
@@ -74,56 +74,60 @@ console.log(this.state.type);
         })
     }
 
+    
+
+
+
 
 render() {
-    return(
-            <div className ='main'>
+    return (
+        <div className='main'>
             <div className='mainDiv'>
                 <Form>
-                    
+
                     <h2>Create Post</h2>
                     <FormGroup>
                         <Label>Gamer Tag </Label>
-                    <Input placeholder='Gamer Tag' type="text" onChange={this.handleGtInput.bind(this)} />
+                        <Input placeholder='Gamer Tag' type="text" onChange={this.handleGtInput.bind(this)} />
                     </FormGroup>
                     <br />
                     <FormGroup>
                         <Label>Players Needed </Label>
-                    <Input placeholder='Players Needed' type="select" onChange={this.handlePnInput.bind(this)}>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    </Input>
+                        <Input placeholder='Players Needed' type="select" onChange={this.handlePnInput.bind(this)}>
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                            <option value='3'>3</option>
+                        </Input>
                     </FormGroup>
                     <br />
                     <FormGroup>
                         <Label>Mic Required? </Label>
-                    <Input placeholder='Mic Required?' type="select" onChange={this.handleMrInput.bind(this)}>
-                    <option value='true'>true</option>
-                    <option value='false'>false</option>
-                    </Input>
+                        <Input placeholder='Mic Required?' type="select" onChange={this.handleMrInput.bind(this)}>
+                            <option value='true'>true</option>
+                            <option value='false'>false</option>
+                        </Input>
                     </FormGroup>
                     <br />
                     <FormGroup>
                         <Label>Game Type </Label>
-                    <Input placeholder='Game Type' type="select" onChange={this.handleTypeInput.bind(this)}>
-                    <option value='casual'>casual</option>
-                    <option value='ranked'>ranked</option>
-                    </Input>
+                        <Input placeholder='Game Type' type="select" onChange={this.handleTypeInput.bind(this)}>
+                            <option value='casual'>casual</option>
+                            <option value='ranked'>ranked</option>
+                        </Input>
                     </FormGroup>
                     <br />
                     <FormGroup>
                         <Label>Comments </Label>
-                    <Input placeholder='Comments' type="text" onChange={this.handleCommentsInput.bind(this)} />
+                        <Input placeholder='Comments' type="text" onChange={this.handleCommentsInput.bind(this)} />
                     </FormGroup>
                     <br />
                     <Button onClick={this.handleCreate}>Submit Post</Button>
 
                 </Form>
             </div>
-            </div>
+        </div>
 
-        )
-    }           
+    )
+}           
 }
 

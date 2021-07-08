@@ -4,27 +4,25 @@ import { Col, Button, Form, FormGroup, Label, Input, FormText, Table } from 'rea
 
 type ViewData = {
     gamerTag: string,
-    playersNeeded: number,
-    micRequired: boolean,
-    type: string,
-    comments: string,
-    posts: any[],
+    gamesPlayed: number,
+    gamesWon: number,
+    kdRatio: number,
+    myStats: any[],
 }
 
 type AcceptedProps = {
     sessionToken: string | null,
 }
 
-export default class ViewPosts extends Component<AcceptedProps, ViewData> {
+export default class MyStats extends Component<AcceptedProps, ViewData> {
     constructor(props: AcceptedProps) {
         super(props)
         this.state = {
             gamerTag: '',
-            playersNeeded: 0,
-            micRequired: true,
-            type: '',
-            comments: '',
-            posts: [],
+            gamesPlayed: 0,
+            gamesWon: 0,
+            kdRatio: 0,
+            myStats: [],
         }
     }
 
@@ -33,7 +31,7 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
         event.preventDefault();
         // console.log(this.state.type);
 
-        fetch('http://jas-team-apex.herokuapp.com/posts/all', {
+        fetch('http://jas-team-apex.herokuapp.com/stats/mine', {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -44,7 +42,7 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
         ).then((data) => {
             console.log(data)
             this.setState({
-                posts: data,
+                myStats: data,
             })
 
         })
@@ -53,35 +51,32 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
 
 
     render() {
-        const { posts } = this.state;
+        const { myStats } = this.state;
         return (
             <div className='main'>
                 <div className='mainDiv'>
-                    <button onClick={this.handleView}>View All Posts</button>
+                    <button onClick={this.handleView}>View My Stats</button>
                 </div>
 
-                {posts.length > 0 && (
+                {myStats.length > 0 && (
                     <div className='postsTable'>
-                        {posts.map(posts => (
+                        {myStats.map(myStats => (
                             <div className='posts'>
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
                                             <th scope='col'>Gamer Tag</th>
-                                            <th scope='col'>Players Needed</th>
-                                            <th scope='col'>Mic Required?</th>
-                                            <th scope='col'>Game Type</th>
-                                            <th scope='col'>Comments</th>
+                                            <th scope='col'>Games Played</th>
+                                            <th scope='col'>Games Won</th>
+                                            <th scope='col'>Kill/Death Ratio</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        <td scope='col'>{posts.gamerTag}</td>
-                                        <td scope='col'>{posts.playersNeeded}</td>
-                                        <td scope='col'>{posts.micRequired? 'yes'  : 'no'}</td>
-                                        <td scope='col'>{posts.type}</td>
-                                        <td scope='col'>{posts.comments}</td>
-                                        </tr>
+                                        <td scope='col'>{myStats.gamerTag}</td>
+                                        <td scope='col'>{myStats.gamesPlayed}</td>
+                                        <td scope='col'>{myStats.gamesWon}</td>
+                                        <td scope='col'>{myStats.kdRatio}</td>                                        </tr>
                                     </tbody>
                                 </Table>
                             </div>
@@ -92,8 +87,3 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
         )
     }
 }
-
-
-
-
-

@@ -9,6 +9,8 @@ import RegisterForm from '../containers/RegisterForm';
 import CreatePost from '../containers/CreatePost';
 import CreateStats from '../containers/CreateStats';
 import ViewPosts from '../containers/ViewPosts';
+import MyPosts from '../containers/MyPosts';
+import MyStats from '../containers/MyStats'
 
 
 
@@ -27,9 +29,11 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
                 <ul className='sidebar-list list-unstyled'>
                     <li><Link to='/loginform'>Login</Link></li>
                     <li><Link to='/registerform'>Register</Link></li>
-                    <li><Link to='/createpost'>Create Post</Link></li>
                     <li><Link to='/createstats'>Create Stats</Link></li>
+                    <li><Link to='/createpost'>Create Post</Link></li>
                     <li><Link to='/viewposts'>View Posts</Link></li>
+                    <li><Link to='/myposts'>View My Posts</Link></li>
+                    <li><Link to='/mystats'>View My Stats</Link></li>
                 </ul>
             </div>
         
@@ -37,9 +41,11 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
             <Switch>
             <Route exact path='/loginform'><LoginForm updateToken={props.updateToken}/></Route>
             <Route exact path='/registerform'><RegisterForm updateToken={props.updateToken}/></Route>
-            <Route exact path='/createpost'><CreatePost sessionToken={props.sessionToken} /></Route>
             <Route exact path='/createstats'><CreateStats sessionToken={props.sessionToken}/></Route>
+            <Route exact path='/createpost'><CreatePost sessionToken={props.sessionToken} /></Route>
             <Route exact path='/viewposts'><ViewPosts sessionToken={props.sessionToken}/></Route>
+            <Route exact path='/myposts'><MyPosts sessionToken={props.sessionToken}/></Route>
+            <Route exact path='/mystats'><MyStats sessionToken={props.sessionToken}/></Route>
             </Switch>
         </div>
         </div>

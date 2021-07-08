@@ -63,7 +63,6 @@ export default class LoginForm extends Component<AcceptedProps, LoginData>{
                         <Input placeholder='Email' type="text" onChange={this.handleEmailInput.bind(this)} />
                         <Input placeholder='Password' type="text" onChange={this.handlePasswordInput.bind(this)} />
                         <Button onClick={this.handleSubmit.bind(this)}>Login</Button>
-                        <Button>Sign Up</Button>
                     </Form>
                 </div>
             </div>

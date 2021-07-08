@@ -4,6 +4,8 @@
         "createpost",
         "createstats",
         "loginform",
+        "myposts",
+        "mystats",
         "registerform",
         "unstyled",
         "viewposts"

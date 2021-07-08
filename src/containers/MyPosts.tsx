@@ -8,14 +8,14 @@ type ViewData = {
     micRequired: boolean,
     type: string,
     comments: string,
-    posts: any[],
+    myPosts: any[],
 }
 
 type AcceptedProps = {
     sessionToken: string | null,
 }
 
-export default class ViewPosts extends Component<AcceptedProps, ViewData> {
+export default class MyPosts extends Component<AcceptedProps, ViewData> {
     constructor(props: AcceptedProps) {
         super(props)
         this.state = {
@@ -24,7 +24,7 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
             micRequired: true,
             type: '',
             comments: '',
-            posts: [],
+            myPosts: [],
         }
     }
 
@@ -33,7 +33,7 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
         event.preventDefault();
         // console.log(this.state.type);
 
-        fetch('http://jas-team-apex.herokuapp.com/posts/all', {
+        fetch('http://jas-team-apex.herokuapp.com/posts/mine', {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
         ).then((data) => {
             console.log(data)
             this.setState({
-                posts: data,
+                myPosts: data,
             })
 
         })
@@ -53,17 +53,17 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
 
 
     render() {
-        const { posts } = this.state;
+        const { myPosts } = this.state;
         return (
             <div className='main'>
                 <div className='mainDiv'>
-                    <button onClick={this.handleView}>View All Posts</button>
+                    <button onClick={this.handleView}>View My Posts</button>
                 </div>
 
-                {posts.length > 0 && (
+                {myPosts.length > 0 && (
                     <div className='postsTable'>
-                        {posts.map(posts => (
-                            <div className='posts'>
+                        {myPosts.map(myPosts => (
+                            <div className='myPosts'>
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
@@ -76,11 +76,11 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        <td scope='col'>{posts.gamerTag}</td>
-                                        <td scope='col'>{posts.playersNeeded}</td>
-                                        <td scope='col'>{posts.micRequired? 'yes'  : 'no'}</td>
-                                        <td scope='col'>{posts.type}</td>
-                                        <td scope='col'>{posts.comments}</td>
+                                        <td scope='col'>{myPosts.gamerTag}</td>
+                                        <td scope='col'>{myPosts.playersNeeded}</td>
+                                        <td scope='col'>{myPosts.micRequired? 'yes'  : 'no'}</td>
+                                        <td scope='col'>{myPosts.type}</td>
+                                        <td scope='col'>{myPosts.comments}</td>
                                         </tr>
                                     </tbody>
                                 </Table>
@@ -92,8 +92,3 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
         )
     }
 }
-
-
-
-
-

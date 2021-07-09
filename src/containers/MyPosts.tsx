@@ -1,6 +1,8 @@
 import { render } from '@testing-library/react';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Col, Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
+
 
 type ViewData = {
     gamerTag: string,
@@ -9,6 +11,7 @@ type ViewData = {
     type: string,
     comments: string,
     myPosts: any[],
+    id: number,
 }
 
 type AcceptedProps = {
@@ -25,6 +28,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
             type: '',
             comments: '',
             myPosts: [],
+            id: 0,
         }
     }
 
@@ -50,6 +54,30 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
         })
     }
 
+    handleDelete = (id: number) => {
+
+        fetch(`http://jas-team-apex.herokuapp.com/posts/delete/${id}`, {
+            method: 'DELETE',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
+            })
+        }).then(
+            (response) => response.json()
+        ).then((data) => {
+            console.log(data)
+            this.setState({
+                myPosts: data,
+            })
+
+        })
+    }
+
+
+    
+
+
+
 
 
     render() {
@@ -63,7 +91,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
                 {myPosts.length > 0 && (
                     <div className='postsTable'>
                         {myPosts.map(myPosts => (
-                            <div className='myPosts'>
+                            <div className='myPosts' key={myPosts.id}>
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
@@ -81,6 +109,8 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
                                         <td scope='col'>{myPosts.micRequired? 'yes'  : 'no'}</td>
                                         <td scope='col'>{myPosts.type}</td>
                                         <td scope='col'>{myPosts.comments}</td>
+                                        <td><Link to={`/createpost/${myPosts.id}`}>Update</Link></td>
+                                        <td><button onClick={() => this.handleDelete(myPosts.id)}>Delete</button></td>
                                         </tr>
                                     </tbody>
                                 </Table>

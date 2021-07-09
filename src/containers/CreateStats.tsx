@@ -7,6 +7,7 @@ type StatsData = {
     gamesPlayed: number,
     gamesWon: number,
     kdRatio: number,
+    id?: number,
 }
 
 type AcceptedProps = {
@@ -24,6 +25,27 @@ export default class CreateStats extends Component<AcceptedProps, StatsData> {
         }
     }
 
+    componentDidMount(){
+        const id = window.location.pathname.slice(-1)
+        fetch('http://jas-team-apex.herokuapp.com/stats/mine', {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
+            })
+        }).then(
+            (response) => response.json()
+        ).then((data) => {
+            console.log(data)
+            if (typeof parseInt(id) === 'number'){
+                this.setState(
+                    data.filter((stats: StatsData) => stats.id === parseInt(id)? 1 : 0)[0])
+            }
+                
+
+        })
+    }
+
 
     handleCreateStats = (event: any) => {
         event.preventDefault();
@@ -38,7 +60,27 @@ export default class CreateStats extends Component<AcceptedProps, StatsData> {
         }).then(
             (response) => response.json()
         ).then((data) => {
-            
+            console.log(data);
+       
+        })
+    }
+
+    handleUpdate = (event: any) => {
+        event.preventDefault();
+        console.log(this.state);
+        const id = window.location.pathname.slice(-1)
+        fetch(`http://jas-team-apex.herokuapp.com/stats/update/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ gamerTag: this.state.gamerTag, gamesPlayed: this.state.gamesPlayed, gamesWon: this.state.gamesWon, kdRatio: this.state.kdRatio }),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
+            })
+        }).then(
+            (response) => response.json()
+        ).then((data) => {
+            console.log(data)
+
         })
     }
 
@@ -76,25 +118,27 @@ render() {
                     <h2>Create Stats</h2>
                     <FormGroup>
                         <Label>Gamer Tag </Label>
-                    <Input placeholder='Gamer Tag' type="text" onChange={this.handleGtInput.bind(this)} />
+                    <Input value={this.state.gamerTag} placeholder='Gamer Tag' type="text" onChange={this.handleGtInput.bind(this)} />
                     </FormGroup>
                     <br />
                     <FormGroup>
                         <Label>Games Played </Label>
-                    <Input placeholder='Games Played' type="text" onChange={this.handleGpInput.bind(this)} />
+                    <Input value={this.state.gamesPlayed} placeholder='Games Played' type="text" onChange={this.handleGpInput.bind(this)} />
                     </FormGroup>
                     <br />
                     <FormGroup>
                         <Label>Games Won </Label>
-                    <Input placeholder='Games Won' type="text" onChange={this.handleGwInput.bind(this)} />
+                    <Input value={this.state.gamesWon} placeholder='Games Won' type="text" onChange={this.handleGwInput.bind(this)} />
                     </FormGroup>
                     <br />
                     <FormGroup>
                         <Label>Kill/Death Ratio </Label>
-                    <Input placeholder='Kill/Death Ratio' type="text" onChange={this.handleKdInput.bind(this)} />
+                    <Input value={this.state.kdRatio} placeholder='Kill/Death Ratio' type="text" onChange={this.handleKdInput.bind(this)} />
                     </FormGroup>
                     <br />
                     <Button onClick={this.handleCreateStats}>Submit Stats</Button>
+                    <br />
+                    <Button onClick={this.handleUpdate}>Update My Stats</Button>
 
                 </Form>
             </div>

@@ -41,7 +41,7 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
             <Switch>
             <Route exact path='/loginform'><LoginForm updateToken={props.updateToken}/></Route>
             <Route exact path='/registerform'><RegisterForm updateToken={props.updateToken}/></Route>
-            <Route exact path='/createstats'><CreateStats sessionToken={props.sessionToken}/></Route>
+            <Route path='/createstats'><CreateStats sessionToken={props.sessionToken}/></Route>
             <Route path='/createpost'><CreatePost sessionToken={props.sessionToken} /></Route>
             <Route exact path='/viewposts'><ViewPosts sessionToken={props.sessionToken}/></Route>
             <Route exact path='/myposts'><MyPosts sessionToken={props.sessionToken}/></Route>

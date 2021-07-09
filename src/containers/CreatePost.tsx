@@ -5,7 +5,7 @@ import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap
 type PostData = {
     gamerTag: string,
     playersNeeded: number,
-    micRequired: boolean, //how to get this to work?
+    micRequired: boolean, 
     type: string,
     comments: string,
     id?: number,

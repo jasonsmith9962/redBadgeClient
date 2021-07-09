@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import { Col, Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 type ViewData = {
     gamerTag: string,
@@ -8,6 +9,7 @@ type ViewData = {
     gamesWon: number,
     kdRatio: number,
     myStats: any[],
+    id: number,
 }
 
 type AcceptedProps = {
@@ -23,6 +25,7 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
             gamesWon: 0,
             kdRatio: 0,
             myStats: [],
+            id: 0,
         }
     }
 
@@ -33,6 +36,25 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
 
         fetch('http://jas-team-apex.herokuapp.com/stats/mine', {
             method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
+            })
+        }).then(
+            (response) => response.json()
+        ).then((data) => {
+            console.log(data)
+            this.setState({
+                myStats: data,
+            })
+
+        })
+    }
+
+    handleDelete = (id: number) => {
+
+        fetch(`http://jas-team-apex.herokuapp.com/stats/delete/${id}`, {
+            method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.token
@@ -61,7 +83,7 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
                 {myStats.length > 0 && (
                     <div className='postsTable'>
                         {myStats.map(myStats => (
-                            <div className='posts'>
+                            <div className='myStats' key={myStats.id}>
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
@@ -76,7 +98,10 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
                                         <td scope='col'>{myStats.gamerTag}</td>
                                         <td scope='col'>{myStats.gamesPlayed}</td>
                                         <td scope='col'>{myStats.gamesWon}</td>
-                                        <td scope='col'>{myStats.kdRatio}</td>                                        </tr>
+                                        <td scope='col'>{myStats.kdRatio}</td>
+                                        <td><Link to={`/createstats/${myStats.id}`}>Update My Stats</Link></td>                                   
+                                        <td><button onClick={() => this.handleDelete(myStats.id)}>Delete</button></td> 
+                                        </tr>
                                     </tbody>
                                 </Table>
                             </div>

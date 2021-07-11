@@ -1,6 +1,11 @@
 import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import styled from 'styled-components';
+
+const Message = styled.div`
+color: #39FF14;
+`
 
 type PostData = {
     gamerTag: string,
@@ -9,6 +14,7 @@ type PostData = {
     type: string,
     comments: string,
     id?: number,
+    message: boolean,
     
 }
 
@@ -24,7 +30,8 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
             playersNeeded: 1,
             micRequired: true,
             type: 'casual',
-            comments: ''
+            comments: '',
+            message: false,
             
         }
     }
@@ -69,7 +76,9 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
             (response) => response.json()
         ).then((data) => {
             console.log(data)
-
+            this.setState({
+                message: true
+            })
         })
     }
 
@@ -88,7 +97,7 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
             (response) => response.json()
         ).then((data) => {
             console.log(data)
-
+            
         })
     }
 
@@ -131,6 +140,7 @@ render() {
     console.log(this.state);
     
     return (
+        <>
         <div className='main'>
             <div className='mainDiv'>
                 <Form>
@@ -153,8 +163,8 @@ render() {
                     <FormGroup>
                         <Label>Mic Required? </Label>
                         <Input value={this.state.micRequired.toString()} placeholder='Mic Required?' type="select" onChange={this.handleMrInput.bind(this)}>
-                            <option value='true'>true</option>
-                            <option value='false'>false</option>
+                            <option value='true'>yes</option>
+                            <option value='false'>no</option>
                         </Input>
                     </FormGroup>
                     <br />
@@ -173,12 +183,21 @@ render() {
                     <br />
                     <Button onClick={this.handleCreate}>Submit Post</Button>
                     <br />
+                    <br />
+                    <p>Use update when updating</p>
                     <Button onClick={this.handleUpdate}>Update Post</Button>
-
                 </Form>
+                
             </div>
         </div>
-
+        {this.state.message === true && (
+            <Message>
+            <div className='message'>
+                <p>Post successfully created</p>
+            </div>
+            </Message>
+        )}
+</>
     )
 }           
 }

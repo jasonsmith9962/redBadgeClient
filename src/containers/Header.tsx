@@ -5,17 +5,16 @@ import {
     NavItem,
     NavLink
 } from 'reactstrap';
+import Logout from './Logout'
 
 const Header = () => {
     return(
         <header>
             <Navbar className='header'>
-                <NavbarBrand href='/'>Find an Apex Team</NavbarBrand>
+                <NavbarBrand>Find an Apex Team</NavbarBrand>
                 <Nav className='ml-auto' navbar>
                     <NavItem>
-                        <NavLink href=''>
-                            
-                        </NavLink>
+                        
                     </NavItem>
                 </Nav>
             </Navbar>

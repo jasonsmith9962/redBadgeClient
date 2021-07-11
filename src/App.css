@@ -65,6 +65,7 @@ ul {
   text-align: center;
   background-color: #53565A;
   color: white;
+  height: 50px;
 }
 
 .header a {
@@ -74,3 +75,4 @@ ul {
 .header p {
   margin-top: 0.8em;
 }
+

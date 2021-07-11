@@ -5,6 +5,7 @@ import { Form, Button, Input } from 'reactstrap';
 type LoginData = {
     emailAddress: string,
     password: string,
+    role: string,
 }
 
 type AcceptedProps = {
@@ -17,6 +18,7 @@ export default class LoginForm extends Component<AcceptedProps, LoginData>{
         this.state = {
             emailAddress: '',
             password: '',
+            role: '',
 
         }
     }
@@ -36,6 +38,9 @@ export default class LoginForm extends Component<AcceptedProps, LoginData>{
         ).then((data) => {
             this.props.updateToken(data.sessionToken)
             console.log(data)
+            this.setState({
+                role: data.user.role
+            })
 
         })
 
@@ -61,7 +66,7 @@ export default class LoginForm extends Component<AcceptedProps, LoginData>{
                     <Form>
                         <h2>Login</h2>
                         <Input placeholder='Email' type="text" onChange={this.handleEmailInput.bind(this)} />
-                        <Input placeholder='Password' type="text" onChange={this.handlePasswordInput.bind(this)} />
+                        <Input placeholder='Password' type="password" onChange={this.handlePasswordInput.bind(this)} />
                         <Button onClick={this.handleSubmit.bind(this)}>Login</Button>
                     </Form>
                 </div>

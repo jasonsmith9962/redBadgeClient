@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import LoginForm from './containers/LoginForm'
 import RegisterForm from './containers/RegisterForm';
-import Auth from './containers/Auth';
 import {
   BrowserRouter as Router
 } from 'react-router-dom';
@@ -35,9 +34,7 @@ componentDidMount() {
 
 clearToken(){
   localStorage.clear();
-  this.setState({
-    sessionToken: ''
-  })
+  window.location.reload()
 }
 
 updateToken(newToken: string) {
@@ -52,7 +49,7 @@ render() {
     <div className="App">
       <Header />
       <Router>
-        <Sidebar updateToken={this.updateToken} sessionToken={this.state.sessionToken}/>
+        <Sidebar updateToken={this.updateToken} sessionToken={this.state.sessionToken} clearToken={this.clearToken}/>
       </Router>
       <Footer />
     </div>

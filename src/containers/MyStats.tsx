@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import { Col, Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
 import {Link} from 'react-router-dom';
+import APIURL from '../helpers/environment';
 
 type ViewData = {
     gamerTag: string,
@@ -34,7 +35,7 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
         event.preventDefault();
         // console.log(this.state.type);
 
-        fetch('http://jas-team-apex.herokuapp.com/stats/mine', {
+        fetch(`${APIURL}/stats/mine`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -53,7 +54,7 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
 
     handleDelete = (id: number) => {
 
-        fetch(`http://jas-team-apex.herokuapp.com/stats/delete/${id}`, {
+        fetch(`${APIURL}/stats/delete/${id}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',

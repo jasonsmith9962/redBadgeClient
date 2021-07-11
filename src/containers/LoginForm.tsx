@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import InputField from '../components/InputField';
 import { Form, Button, Input } from 'reactstrap';
+import APIURL from '../helpers/environment';
 
 type LoginData = {
     emailAddress: string,
     password: string,
-    role: string,
+    
 }
 
 type AcceptedProps = {
@@ -18,7 +19,7 @@ export default class LoginForm extends Component<AcceptedProps, LoginData>{
         this.state = {
             emailAddress: '',
             password: '',
-            role: '',
+            
 
         }
     }
@@ -27,7 +28,7 @@ export default class LoginForm extends Component<AcceptedProps, LoginData>{
         event.preventDefault();
 
 
-        fetch('http://jas-team-apex.herokuapp.com/user/login', {
+        fetch(`${APIURL}/user/login`, {
             method: 'POST',
             body: JSON.stringify({ user: { emailAddress: this.state.emailAddress, password: this.state.password } }),
             headers: new Headers({
@@ -39,7 +40,7 @@ export default class LoginForm extends Component<AcceptedProps, LoginData>{
             this.props.updateToken(data.sessionToken)
             console.log(data)
             this.setState({
-                role: data.user.role
+                
             })
 
         })

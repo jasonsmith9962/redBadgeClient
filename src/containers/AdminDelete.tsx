@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React, {Component} from 'react';
 import {Form, Input, Label, Button} from 'reactstrap';
+import APIURL from '../helpers/environment';
 
 type AdminData = {
     id: number,
@@ -26,7 +27,7 @@ export default class AdminDelete extends Component<AcceptedProps, AdminData> {
     
     handleDelete = (id: number) => {
 
-        fetch(`http://jas-team-apex.herokuapp.com/user/delete/admin/${id}`, {
+        fetch(`${APIURL}/user/delete/admin/${id}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export default class AdminDelete extends Component<AcceptedProps, AdminData> {
 
     handleDeletePost = (postId: number) => {
 
-        fetch(`http://jas-team-apex.herokuapp.com/posts/delete/admin/${postId}`, {
+        fetch(`${APIURL}/posts/delete/admin/${postId}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',

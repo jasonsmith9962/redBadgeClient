@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import InputField from '../components/InputField';
 import { Form, Button, Input } from 'reactstrap';
+import APIURL from '../helpers/environment';
 
 
 type RegisterData = {
@@ -26,7 +27,7 @@ export default class RegisterForm extends Component<AcceptedProps, RegisterData>
         event.preventDefault();
 
 
-        fetch('http://jas-team-apex.herokuapp.com/user/register', {
+        fetch(`${APIURL}/user/register`, {
             method: 'POST',
             body: JSON.stringify({ user: { emailAddress: this.state.emailAddress, password: this.state.password, role: this.state.role } }),
             headers: new Headers({

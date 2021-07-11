@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import styled from 'styled-components';
+import APIURL from '../helpers/environment';
 
 const Message = styled.div`
 color: #39FF14;
@@ -39,7 +40,7 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
 
     componentDidMount(){
         const id = window.location.pathname.slice(-1)
-        fetch('http://jas-team-apex.herokuapp.com/posts/mine', {
+        fetch(`${APIURL}/posts/mine`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -65,7 +66,7 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
         event.preventDefault();
         console.log(this.state);
 
-        fetch('http://jas-team-apex.herokuapp.com/posts/create', {
+        fetch(`${APIURL}/posts/create`, {
             method: 'POST',
             body: JSON.stringify({ gamerTag: this.state.gamerTag, playersNeeded: this.state.playersNeeded, micRequired: this.state.micRequired, type: this.state.type, comments: this.state.comments }),
             headers: new Headers({
@@ -86,7 +87,7 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
         event.preventDefault();
         console.log(this.state);
         const id = window.location.pathname.slice(-1)
-        fetch(`http://jas-team-apex.herokuapp.com/posts/update/${id}`, {
+        fetch(`${APIURL}/posts/update/${id}`, {
             method: 'PUT',
             body: JSON.stringify({ gamerTag: this.state.gamerTag, playersNeeded: this.state.playersNeeded, micRequired: this.state.micRequired, type: this.state.type, comments: this.state.comments }),
             headers: new Headers({

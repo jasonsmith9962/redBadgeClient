@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import { Col, Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
+import APIURL from '../helpers/environment';
 
 type ViewData = {
     gamerTag: string,
@@ -33,7 +34,7 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
         event.preventDefault();
         // console.log(this.state.type);
 
-        fetch('http://jas-team-apex.herokuapp.com/posts/all', {
+        fetch(`${APIURL}/posts/all`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',

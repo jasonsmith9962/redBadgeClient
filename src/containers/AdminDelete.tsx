@@ -2,6 +2,13 @@ import { render } from '@testing-library/react';
 import React, {Component} from 'react';
 import {Form, Input, Label, Button} from 'reactstrap';
 import APIURL from '../helpers/environment';
+import styled from 'styled-components';
+
+const Red = styled.p`
+color: red;
+`
+
+
 
 type AdminData = {
     id: number,
@@ -64,6 +71,7 @@ export default class AdminDelete extends Component<AcceptedProps, AdminData> {
     }
 
     render() {
+        if (localStorage.getItem('role') == 'admin'){
         return(
             <div className='main'>
                 <div className='mainDiv'>
@@ -83,6 +91,15 @@ export default class AdminDelete extends Component<AcceptedProps, AdminData> {
                 </div>
             </div>
         )
+    } else {
+        return(
+            <div>
+                <Red>
+                <p className='red'>You are not authorized to use the admin feature</p>
+                </Red>
+            </div>
+        )
+    }
     }
 
 

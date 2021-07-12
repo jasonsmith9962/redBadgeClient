@@ -34,9 +34,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
     }
 
 
-    handleView = (event: any) => {
-        event.preventDefault();
-        // console.log(this.state.type);
+    componentWillMount() {
 
         fetch(`${APIURL}/posts/mine`, {
             method: 'GET',
@@ -86,7 +84,6 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
         return (
             <div className='main'>
                 <div className='mainDiv'>
-                    <button onClick={this.handleView}>View My Posts</button>
                 </div>
 
                 {myPosts.length > 0 && (

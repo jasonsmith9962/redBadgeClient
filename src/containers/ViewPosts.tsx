@@ -1,7 +1,19 @@
 import { render } from '@testing-library/react';
 import React, { Component } from 'react';
-import { Col, Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
 import APIURL from '../helpers/environment';
+import styled from 'styled-components';
+
+const Posts = styled.div`
+background-color: white;
+margin-top: 20px;
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+font-size: 25px;
+display: flex;
+justify-content: center;
+`
 
 type ViewData = {
     gamerTag: string,
@@ -30,9 +42,7 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
     }
 
 
-    handleView = (event: any) => {
-        event.preventDefault();
-        // console.log(this.state.type);
+    componentWillMount()  {
 
         fetch(`${APIURL}/posts/all`, {
             method: 'GET',
@@ -56,11 +66,8 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
     render() {
         const { posts } = this.state;
         return (
-            <div className='main'>
-                <div className='mainDiv'>
-                    <button onClick={this.handleView}>View All Posts</button>
-                </div>
-
+            <Posts>
+                <br />
                 {posts.length > 0 && (
                     <div className='postsTable'>
                         {posts.map(posts => (
@@ -68,20 +75,20 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
-                                            <th scope='col'>Gamer Tag</th>
-                                            <th scope='col'>Players Needed</th>
-                                            <th scope='col'>Mic Required?</th>
-                                            <th scope='col'>Game Type</th>
-                                            <th scope='col'>Comments</th>
+                                            <th>Gamer Tag</th>
+                                            <th>Players Needed</th>
+                                            <th>Mic Required?</th>
+                                            <th>Game Type</th>
+                                            <th>Comments</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        <td scope='col'>{posts.gamerTag}</td>
-                                        <td scope='col'>{posts.playersNeeded}</td>
-                                        <td scope='col'>{posts.micRequired? 'yes'  : 'no'}</td>
-                                        <td scope='col'>{posts.type}</td>
-                                        <td scope='col'>{posts.comments}</td>
+                                            <td>{posts.gamerTag}</td>
+                                            <td>{posts.playersNeeded}</td>
+                                            <td>{posts.micRequired ? 'yes' : 'no'}</td>
+                                            <td>{posts.type}</td>
+                                            <td>{posts.comments}</td>
                                         </tr>
                                     </tbody>
                                 </Table>
@@ -89,7 +96,7 @@ export default class ViewPosts extends Component<AcceptedProps, ViewData> {
                         ))}
                     </div>
                 )}
-            </div>
+            </Posts>
         )
     }
 }

@@ -7,7 +7,6 @@ import APIURL from '../helpers/environment';
 type RegisterData = {
     emailAddress: string,
     password: string,
-    role: string,
 }
 type AcceptedProps = {
     updateToken: (newToken: string) => void
@@ -19,7 +18,6 @@ export default class RegisterForm extends Component<AcceptedProps, RegisterData>
         this.state = {
             emailAddress: '',
             password: '',
-            role: 'user',
         }
     }
 
@@ -29,7 +27,7 @@ export default class RegisterForm extends Component<AcceptedProps, RegisterData>
 
         fetch(`${APIURL}/user/register`, {
             method: 'POST',
-            body: JSON.stringify({ user: { emailAddress: this.state.emailAddress, password: this.state.password, role: this.state.role } }),
+            body: JSON.stringify({ user: { emailAddress: this.state.emailAddress, password: this.state.password } }),
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
@@ -60,7 +58,7 @@ export default class RegisterForm extends Component<AcceptedProps, RegisterData>
                 <div className='mainDiv'>
                     <Form>
                         <h2>Register</h2>
-                        <Input placeholder='Email' type="text" onChange={this.handleEmailInput.bind(this)} />
+                        <Input placeholder='Email' type="email" pattern=".+@email\.com" required onChange={this.handleEmailInput.bind(this)} />
                         <Input placeholder='Password' type="text" onChange={this.handlePasswordInput.bind(this)} />
                         <Button onClick={this.handleSubmit}>Sign Up</Button>
                     </Form>

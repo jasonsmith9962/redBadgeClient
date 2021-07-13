@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import APIURL from '../helpers/environment';
 
 const Message = styled.div`
-color: #39FF14;
+color: #32CD32;
+font-size: 30px;
 `
 type StatsData = {
     gamerTag: string,
@@ -32,27 +33,6 @@ export default class CreateStats extends Component<AcceptedProps, StatsData> {
         }
     }
 
-    componentDidMount() {
-        const id = window.location.pathname.slice(-1)
-        fetch(`${APIURL}/stats/mine`, {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.token
-            })
-        }).then(
-            (response) => response.json()
-        ).then((data) => {
-            console.log(data)
-            if (typeof parseInt(id) === 'number') {
-                this.setState(
-                    data.filter((stats: StatsData) => stats.id === parseInt(id) ? 1 : 0)[0])
-            }
-
-
-        })
-    }
-
 
     handleCreateStats = (event: any) => {
         event.preventDefault();
@@ -71,25 +51,6 @@ export default class CreateStats extends Component<AcceptedProps, StatsData> {
             this.setState({
                 message: true
             })
-        })
-    }
-
-    handleUpdate = (event: any) => {
-        event.preventDefault();
-        console.log(this.state);
-        const id = window.location.pathname.slice(-1)
-        fetch(`${APIURL}/stats/update/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ gamerTag: this.state.gamerTag, gamesPlayed: this.state.gamesPlayed, gamesWon: this.state.gamesWon, kdRatio: this.state.kdRatio }),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.token
-            })
-        }).then(
-            (response) => response.json()
-        ).then((data) => {
-            console.log(data)
-            
         })
     }
 
@@ -148,21 +109,19 @@ export default class CreateStats extends Component<AcceptedProps, StatsData> {
                         <br />
                         <Button onClick={this.handleCreateStats}>Submit Stats</Button>
                         <br />
-                        <br />
-                        <p>Use only when updating</p>
-                        <Button onClick={this.handleUpdate}>Update My Stats</Button>
-                    </Form>
-                    
-                    
-                </div>
-            </div>
-{this.state.message === true && (
+                        {this.state.message === true && (
     <Message>
     <div className='message'>
         <p>Stats successfully created</p>
     </div>
     </Message>
 )}
+                    </Form>
+                    
+                    
+                </div>
+            </div>
+
 </>
         )
     }

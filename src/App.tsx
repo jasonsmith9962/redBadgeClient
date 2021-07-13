@@ -13,13 +13,18 @@ import Header from './containers/Header';
 type Props = {}
 type AppState = {
   sessionToken: string | null,
+  postId: number,
+  statsId: number,
 }
 
 class App extends Component <Props, AppState> {
-constructor(props: Props) {
+constructor(props: AppState) {
   super(props);
   this.state = {
-    sessionToken: ('')
+    sessionToken: (''),
+    postId: 0,
+    statsId: 0,
+
   }
   this.updateToken = this.updateToken.bind(this);
 }
@@ -32,24 +37,35 @@ componentDidMount() {
   }
 }
 
-clearToken(){
+clearToken = () => {
   localStorage.clear();
   window.location.reload()
 }
 
-updateToken(newToken: string) {
+updateToken = (newToken: string) => {
   localStorage.setItem('token', newToken)
   this.setState({
     sessionToken: newToken
   }, () => console.log(this.state.sessionToken)
   )
+};
+
+updatePostId = (newPostId: number) => {
+  this.setState({postId: newPostId});
+
+};
+
+updateStatsId = (newStatsId: number) => {
+  this.setState({statsId: newStatsId})
 }
+
+
 render() {
   return (
     <div className="App">
       <Header />
       <Router>
-        <Sidebar updateToken={this.updateToken} sessionToken={this.state.sessionToken} clearToken={this.clearToken}/>
+        <Sidebar statsId={this.state.statsId} updateStatsId={this.updateStatsId} postId={this.state.postId} updatePostId={this.updatePostId} updateToken={this.updateToken} sessionToken={this.state.sessionToken} clearToken={this.clearToken}/>
       </Router>
       <Footer />
     </div>

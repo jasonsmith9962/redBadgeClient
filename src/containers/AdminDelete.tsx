@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 const Red = styled.p`
 color: red;
+font-size: 30px;
 `
 
 
@@ -85,7 +86,7 @@ export default class AdminDelete extends Component<AcceptedProps, AdminData> {
                         <Label>Post ID</Label>
                         <Input onChange={(e) => this.setState({postId: parseInt(e.target.value)})}/>
                         <br />
-                        <Button onClick={(e) => this.handleDeletePost(this.state.postId)}>Delete A Post</Button>
+                        <Button onClick={(e) => this.handleDeletePost(this.state.postId)}>Delete a Users Post</Button>
 
                     </Form>
                 </div>

@@ -5,11 +5,14 @@
         "apiurl",
         "createpost",
         "createstats",
+        "editpost",
+        "editstats",
         "loginform",
         "myposts",
         "mystats",
         "registerform",
         "unstyled",
-        "viewposts"
+        "viewposts",
+        "viewstats"
     ]
 }

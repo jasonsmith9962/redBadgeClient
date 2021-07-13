@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import APIURL from '../helpers/environment';
 
 const Message = styled.div`
-color: #39FF14;
+color: #32CD32;
+font-size: 30px;
 `
 
 type PostData = {
@@ -16,6 +17,7 @@ type PostData = {
     comments: string,
     id?: number,
     message: boolean,
+    message2: boolean,
     
 }
 
@@ -33,36 +35,13 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
             type: 'casual',
             comments: '',
             message: false,
+            message2: false,
             
         }
     }
 
 
-    componentDidMount(){
-        const id = window.location.pathname.slice(-1)
-        fetch(`${APIURL}/posts/mine`, {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.token
-            })
-        }).then(
-            (response) => response.json()
-        ).then((data) => {
-            console.log(data)
-            if (typeof parseInt(id) === 'number'){
-                this.setState(
-                    data.filter((post: PostData) => post.id === parseInt(id)? 1 : 0)[0])
-            }
-                
-
-        })
-    }
-
-
-
-
-    handleCreate = (event: any) => {
+     handleCreate = (event: any) => {
         event.preventDefault();
         console.log(this.state);
 
@@ -80,25 +59,6 @@ export default class CreatePost extends Component<AcceptedProps, PostData> {
             this.setState({
                 message: true
             })
-        })
-    }
-
-    handleUpdate = (event: any) => {
-        event.preventDefault();
-        console.log(this.state);
-        const id = window.location.pathname.slice(-1)
-        fetch(`${APIURL}/posts/update/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ gamerTag: this.state.gamerTag, playersNeeded: this.state.playersNeeded, micRequired: this.state.micRequired, type: this.state.type, comments: this.state.comments }),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.token
-            })
-        }).then(
-            (response) => response.json()
-        ).then((data) => {
-            console.log(data)
-            
         })
     }
 
@@ -157,7 +117,6 @@ render() {
                         <Input value={this.state.playersNeeded} placeholder='Players Needed' type="select" onChange={this.handlePnInput.bind(this)}>
                             <option value='1'>1</option>
                             <option value='2'>2</option>
-                            <option value='3'>3</option>
                         </Input>
                     </FormGroup>
                     <br />
@@ -184,20 +143,16 @@ render() {
                     <br />
                     <Button onClick={this.handleCreate}>Submit Post</Button>
                     <br />
+                    {this.state.message === true && (
+            <Message>
+                <p>Post successfully created</p>
+            </Message>
+        )}
                     <br />
-                    <p>Use only when updating</p>
-                    <Button onClick={this.handleUpdate}>Update Post</Button>
                 </Form>
                 
             </div>
         </div>
-        {this.state.message === true && (
-            <Message>
-            <div className='message'>
-                <p>Post successfully created</p>
-            </div>
-            </Message>
-        )}
 </>
     )
 }           

@@ -15,6 +15,7 @@ type ViewData = {
 
 type AcceptedProps = {
     sessionToken: string | null,
+    updateStatsId: (newStatsId: number) => void
 }
 
 export default class MyStats extends Component<AcceptedProps, ViewData> {
@@ -31,8 +32,7 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
     }
 
 
-    componentWillMount() {
-
+    componentWillMount()  {
         fetch(`${APIURL}/stats/mine`, {
             method: 'GET',
             headers: new Headers({
@@ -75,6 +75,7 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
         const { myStats } = this.state;
         return (
             <div className='main'>
+                {/* <button onClick={this.handleView}>View My Stats</button> */}
 
 
                 {myStats.length > 0 && (
@@ -96,7 +97,8 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
                                         <td scope='col'>{myStats.gamesPlayed}</td>
                                         <td scope='col'>{myStats.gamesWon}</td>
                                         <td scope='col'>{myStats.kdRatio}</td>
-                                        <td><Link to={`/createstats/${myStats.id}`}>Update My Stats</Link></td>                                   
+                                        <td><Link to={`/editstats`}><button type="submit" 
+                                        onClick={(e) => {this.props.updateStatsId(myStats.id);}}>Update</button></Link></td>                                   
                                         <td><button onClick={() => this.handleDelete(myStats.id)}>Delete</button></td> 
                                         </tr>
                                     </tbody>

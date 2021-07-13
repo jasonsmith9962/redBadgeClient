@@ -20,8 +20,8 @@ CRUD GET
 3-MyStats.tsx - stats/mine
 
 CRUD PUT
-1-CreatePost.tsx - posts/update/${id}
-2-CreateStats.tsx - stats/update/${id}
+1-EditPostt.tsx - posts/update/${PostId}
+2-EditStats.tsx - stats/update/${StatsId}
 
 CRUD DELETE
 1-MyPosts.tsx - posts/delete/${id}

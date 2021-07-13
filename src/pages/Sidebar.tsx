@@ -13,6 +13,8 @@ import MyPosts from '../containers/MyPosts';
 import MyStats from '../containers/MyStats';
 import AdminDelete from '../containers/AdminDelete';
 import ViewStats from '../containers/ViewStats';
+import EditPost from '../containers/EditPost'
+import EditStats from '../containers/EditStats';
 import apexlogo2 from '../assets/apexlogo2.png';
 import styled from 'styled-components';
 
@@ -34,8 +36,12 @@ font-size: 25px;
 type AcceptedProps = {
     updateToken: (newToken: string) => void,
     sessionToken: string | null,
-    clearToken: () => void
-}
+    clearToken: () => void,
+    postId: number, 
+    updatePostId: (newPostId: number) => void
+    statsId: number,
+    updateStatsId: (newStatsId: number) => void
+};
 
 
 const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
@@ -62,6 +68,8 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
                             <br />
                             <li><Link to='/admindelete'>Admin</Link></li>
                             <br />
+                            <Link to='/editpost'></Link>
+                            <Link to='/editstats'></Link>
                             <button onClick={props.clearToken}>Logout</button>
                         </ul>
                     </div>
@@ -72,9 +80,12 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
                             <Route path='/createpost'><CreatePost sessionToken={props.sessionToken} /></Route>
                             <Route exact path='/viewposts'><ViewPosts sessionToken={props.sessionToken} /></Route>
                             <Route exact path='/viewstats'><ViewStats sessionToken={props.sessionToken} /></Route>
-                            <Route exact path='/myposts'><MyPosts sessionToken={props.sessionToken} /></Route>
-                            <Route exact path='/mystats'><MyStats sessionToken={props.sessionToken} /></Route>
+                            <Route exact path='/myposts'><MyPosts updatePostId={props.updatePostId} sessionToken={props.sessionToken} /></Route>
+                            <Route exact path='/mystats'><MyStats updateStatsId={props.updateStatsId} sessionToken={props.sessionToken} /></Route>
                             <Route exact path='/admindelete'><AdminDelete sessionToken={props.sessionToken} /></Route>
+                            <Route exact path='/editpost'><EditPost postId={props.postId} sessionToken={props.sessionToken} /></Route>
+                            <Route exact path='/editstats'><EditStats statsId={props.statsId} sessionToken={props.sessionToken} /></Route>
+                            
                         </Switch>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Col, Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
 import APIURL from '../helpers/environment';
 
 
@@ -17,6 +17,7 @@ type ViewData = {
 
 type AcceptedProps = {
     sessionToken: string | null,
+    updatePostId: (newPostId: number) => void
 }
 
 export default class MyPosts extends Component<AcceptedProps, ViewData> {
@@ -33,9 +34,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
         }
     }
 
-
     componentWillMount() {
-
         fetch(`${APIURL}/posts/mine`, {
             method: 'GET',
             headers: new Headers({
@@ -73,7 +72,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
     }
 
 
-    
+
 
 
 
@@ -84,6 +83,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
         return (
             <div className='main'>
                 <div className='mainDiv'>
+                    {/* <button onClick={this.handleView}>View My Posts</button> */}
                 </div>
 
                 {myPosts.length > 0 && (
@@ -102,13 +102,15 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        <td scope='col'>{myPosts.gamerTag}</td>
-                                        <td scope='col'>{myPosts.playersNeeded}</td>
-                                        <td scope='col'>{myPosts.micRequired? 'yes'  : 'no'}</td>
-                                        <td scope='col'>{myPosts.type}</td>
-                                        <td scope='col'>{myPosts.comments}</td>
-                                        <td><Link to={`/createpost/${myPosts.id}`}>Update</Link></td>
-                                        <td><button onClick={() => this.handleDelete(myPosts.id)}>Delete</button></td>
+                                            <td scope='col'>{myPosts.gamerTag}</td>
+                                            <td scope='col'>{myPosts.playersNeeded}</td>
+                                            <td scope='col'>{myPosts.micRequired ? 'yes' : 'no'}</td>
+                                            <td scope='col'>{myPosts.type}</td>
+                                            <td scope='col'>{myPosts.comments}</td>
+                                            <td><Link to={`/editpost`}><button
+                                                type="submit"
+                                                onClick={(e) => { this.props.updatePostId(myPosts.id); }}>Update</button></Link></td>
+                                            <td><button onClick={() => this.handleDelete(myPosts.id)}>Delete</button></td>
                                         </tr>
                                     </tbody>
                                 </Table>

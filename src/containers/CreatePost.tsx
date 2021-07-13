@@ -185,7 +185,7 @@ render() {
                     <Button onClick={this.handleCreate}>Submit Post</Button>
                     <br />
                     <br />
-                    <p>Use update when updating</p>
+                    <p>Use only when updating</p>
                     <Button onClick={this.handleUpdate}>Update Post</Button>
                 </Form>
                 

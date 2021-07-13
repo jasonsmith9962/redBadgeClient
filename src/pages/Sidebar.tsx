@@ -12,6 +12,7 @@ import ViewPosts from '../containers/ViewPosts';
 import MyPosts from '../containers/MyPosts';
 import MyStats from '../containers/MyStats';
 import AdminDelete from '../containers/AdminDelete';
+import ViewStats from '../containers/ViewStats';
 import apexlogo2 from '../assets/apexlogo2.png';
 import styled from 'styled-components';
 
@@ -24,7 +25,7 @@ display: flex;
 flex-direction: column;
 flex-wrap: no-wrap;
 justify content: center;
-margin-left: 450px;
+margin-left: 625px;
 font-size: 25px;
 `
 
@@ -53,6 +54,8 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
                             <br />
                             <li><Link to='/viewposts'>View Posts</Link></li>
                             <br />
+                            <li><Link to='/viewstats'>View Player Stats</Link></li>
+                            <br />
                             <li><Link to='/myposts'>View My Posts</Link></li>
                             <br />
                             <li><Link to='/mystats'>View My Stats</Link></li>
@@ -68,6 +71,7 @@ const Sidebar: React.FunctionComponent<AcceptedProps> = (props) => {
                             <Route path='/createstats'><CreateStats sessionToken={props.sessionToken} /></Route>
                             <Route path='/createpost'><CreatePost sessionToken={props.sessionToken} /></Route>
                             <Route exact path='/viewposts'><ViewPosts sessionToken={props.sessionToken} /></Route>
+                            <Route exact path='/viewstats'><ViewStats sessionToken={props.sessionToken} /></Route>
                             <Route exact path='/myposts'><MyPosts sessionToken={props.sessionToken} /></Route>
                             <Route exact path='/mystats'><MyStats sessionToken={props.sessionToken} /></Route>
                             <Route exact path='/admindelete'><AdminDelete sessionToken={props.sessionToken} /></Route>

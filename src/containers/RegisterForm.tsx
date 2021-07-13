@@ -58,8 +58,8 @@ export default class RegisterForm extends Component<AcceptedProps, RegisterData>
                 <div className='mainDiv'>
                     <Form>
                         <h2>Register</h2>
-                        <Input placeholder='Email' type="email" pattern=".+@email\.com" required onChange={this.handleEmailInput.bind(this)} />
-                        <Input placeholder='Password' type="text" onChange={this.handlePasswordInput.bind(this)} />
+                        <Input required type='email' placeholder='Email' onChange={this.handleEmailInput.bind(this)} />
+                        <Input required MinLength='5' placeholder='Password' type="text" onChange={this.handlePasswordInput.bind(this)} />
                         <Button onClick={this.handleSubmit}>Sign Up</Button>
                     </Form>
                 </div>

@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+Find an APEX Team
+https://jas-teamapex-client.herokuapp.com
+A app where APEX LEGENDS players can go and find a team to play with.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Auth Register
+-Completed in RegisterForm.tsx
 
-## Available Scripts
+Auth Login
+-Completed in LoginForm.tsx
 
-In the project directory, you can run:
+CRUD POST
+-LoginForm.tsx - user/login
+-RegisterForm.tsx - user/register
+1-CreatePost.tsx - posts/create
+2-CreateStats.tsx - stats/create
 
-### `npm start`
+CRUD GET
+1-ViewPosts.tsx - posts/all
+2-MyPosts.tsx - posts/mine
+3-MyStats.tsx - stats/mine
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+CRUD PUT
+1-CreatePost.tsx - posts/update/${id}
+2-CreateStats.tsx - stats/update/${id}
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+CRUD DELETE
+1-MyPosts.tsx - posts/delete/${id}
+2-MyStats.tsx - stats/delete/${id}
+3-AdminDelete.tsx - user/delete/admin/${id}
+4-AdminDelete.tsx - posts/delete/admin/${postId}
 
-### `npm test`
+Heroku Deployment
+https://jas-teamapex-client.herokuapp.com
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Form Validation
+-RegisterForm.tsx - Lines 61 & 62
+-LoginForm.tsx - Lines 69 & 70
 
-### `npm run build`
+React Router
+-Used React Router Dom - Sidebar.tsx
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Lifecycle Methods
+-Used successfully throughout the client
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Props and State management
+-Used successfully throughout the client
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+React Patterns
+-Used successfully throughout the client
 
-### `npm run eject`
+Styling
+-Used styled components and css
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Admin
+-AdminDelete.tsx
+Only allows admins access
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Fetching from deployed server
+Yes
+https://jas-team-apex.herokuapp.com
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

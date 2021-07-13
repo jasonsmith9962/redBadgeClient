@@ -148,8 +148,8 @@ export default class CreateStats extends Component<AcceptedProps, StatsData> {
                         <br />
                         <Button onClick={this.handleCreateStats}>Submit Stats</Button>
                         <br />
-                        
                         <br />
+                        <p>Use only when updating</p>
                         <Button onClick={this.handleUpdate}>Update My Stats</Button>
                     </Form>
                     

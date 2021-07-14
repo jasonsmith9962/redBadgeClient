@@ -3,6 +3,18 @@ import React, { Component } from 'react';
 import { Col, Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import APIURL from '../helpers/environment';
+import styled from 'styled-components';
+
+const Stats = styled.div`
+background-color: white;
+margin-top: 20px;
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+font-size: 25px;
+display: flex;
+justify-content: center;
+`
 
 type ViewData = {
     gamerTag: string,
@@ -82,6 +94,7 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
                     <div className='postsTable'>
                         {myStats.map(myStats => (
                             <div className='myStats' key={myStats.id}>
+                                <Stats>
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
@@ -103,6 +116,7 @@ export default class MyStats extends Component<AcceptedProps, ViewData> {
                                         </tr>
                                     </tbody>
                                 </Table>
+                                </Stats>
                             </div>
                         ))}
                     </div>

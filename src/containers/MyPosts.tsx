@@ -3,6 +3,22 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'reactstrap';
 import APIURL from '../helpers/environment';
+import styled from 'styled-components';
+
+const Posts = styled.div`
+background-color: white;
+margin-top: 20px;
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+font-size: 25px;
+display: flex;
+justify-content: center;
+`
+
+
+
+
 
 
 type ViewData = {
@@ -89,6 +105,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
                 {myPosts.length > 0 && (
                     <div className='postsTable'>
                         {myPosts.map(myPosts => (
+                            <Posts>
                             <div className='myPosts' key={myPosts.id}>
                                 <Table striped bordered hover>
                                     <thead>
@@ -104,7 +121,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
                                         <tr>
                                             <td scope='col'>{myPosts.gamerTag}</td>
                                             <td scope='col'>{myPosts.playersNeeded}</td>
-                                            <td scope='col'>{myPosts.micRequired ? 'yes' : 'no'}</td>
+                                            <td scope='col3'>{myPosts.micRequired ? 'yes' : 'no'}</td>
                                             <td scope='col'>{myPosts.type}</td>
                                             <td scope='col'>{myPosts.comments}</td>
                                             <td><Link to={`/editpost`}><button
@@ -115,6 +132,7 @@ export default class MyPosts extends Component<AcceptedProps, ViewData> {
                                     </tbody>
                                 </Table>
                             </div>
+                            </Posts>
                         ))}
                     </div>
                 )}

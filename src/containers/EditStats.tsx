@@ -113,7 +113,7 @@ export default class EditStats extends Component<AcceptedProps, StatsData> {
                     <div className='mainDiv'>
                         <Form>
 
-                            <h2>Create Stats</h2>
+                            <h2>Update Stats</h2>
                             <FormGroup>
                                 <Label>Gamer Tag </Label>
                                 <Input value={this.state.gamerTag} placeholder='Gamer Tag' type="text" onChange={this.handleGtInput.bind(this)} />
